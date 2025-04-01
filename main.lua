@@ -197,6 +197,21 @@ local Library = {
 	ScreenGUI = nil;
 }
 
+Library:Connection(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
+    -- Verifica se é um botão do mouse mapeado
+    if Library.Keys[input.UserInputType] then
+        local key = Library.Keys[input.UserInputType]
+        print("Botão pressionado:", key)
+        
+        -- Ações específicas para cada botão
+        if input.UserInputType == Enum.UserInputType.MouseButton4 then
+            -- Ação para o botão lateral 1 (MB4)
+        elseif input.UserInputType == Enum.UserInputType.MouseButton5 then
+            -- Ação para o botão lateral 2 (MB5)
+        end
+    end
+end)
+
 local Players = game:GetService("Players")
 local InputService = game:GetService("UserInputService");
 local RunService = game:GetService("RunService");
