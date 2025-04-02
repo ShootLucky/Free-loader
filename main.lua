@@ -184,9 +184,7 @@ local Library = {
 		[Enum.KeyCode.Backquote] = "`",
 		[Enum.UserInputType.MouseButton1] = "MB1",
 		[Enum.UserInputType.MouseButton2] = "MB2",
-		[Enum.UserInputType.MouseButton3] = "MB3",
-                [Enum.KeyCode.MouseButton4] = "MB4",
-                [Enum.KeyCode.MouseButton5] = "MB5"
+		[Enum.UserInputType.MouseButton3] = "MB3"
 	};
 	Connections = {};
 	Font = Font.new("rbxassetid://12187371840");
@@ -608,17 +606,26 @@ Library.Sections.__index = Library.Sections;
 			end;
 		end;
 		-- 
-		function Library:KeybindList()
-			local KeyList = {Keybinds = {}};
-			Library.KeyList = KeyList
-			--
-			local KeyOutline = Instance.new('Frame', PlaceHolderUI)
-			local KeyInline = Instance.new('Frame', KeyOutline)
-			local KeyAccent = Instance.new('Frame', KeyInline)
-			local KeyHolder = Instance.new('Frame', KeyInline)
-			local UIListLayout = Instance.new('UIListLayout', KeyHolder)
-			local KeyTitle = Instance.new('TextLabel', KeyInline)
-			local LineThing = Instance.new('Frame', KeyInline)
+        function Library:KeybindList()
+            local KeyList = {
+                Keybinds = {},
+                Elements = {} -- Nova tabela para armazenar elementos UI
+            }
+            Library.KeyList = KeyList
+            
+            -- Verifica se PlaceHolderUI existe ou cria um
+            if not PlaceHolderUI then
+                PlaceHolderUI = Instance.new("ScreenGui", game:GetService("CoreGui"))
+                PlaceHolderUI.Name = "LunarLibKeybindList"
+            end
+            
+            local KeyOutline = Instance.new('Frame', PlaceHolderUI)
+            local KeyInline = Instance.new('Frame', KeyOutline)
+            local KeyAccent = Instance.new('Frame', KeyInline)
+            local KeyHolder = Instance.new('Frame', KeyInline)
+            local UIListLayout = Instance.new('UIListLayout', KeyHolder)
+            local KeyTitle = Instance.new('TextLabel', KeyInline)
+            local LineThing = Instance.new('Frame', KeyInline)
 			--
 			KeyOutline.Name = "KeyOutline"
 			KeyOutline.Position = UDim2.new(0.01,0,0.5,0)
@@ -668,41 +675,60 @@ Library.Sections.__index = Library.Sections;
 			LineThing.Size = UDim2.new(1,0,0,1)
 			LineThing.BackgroundColor3 = Color3.new(0.1765,0.1765,0.1765)
 			LineThing.BorderSizePixel = 0
-			LineThing.BorderColor3 = Color3.new(0,0,0)
-			-- Functions
-			function KeyList:SetVisible(State)
-				KeyOutline.Visible = State;
-			end;
-			--
-			function KeyList:NewKey(Name, Key, Mode)
-				local KeyValue = {}
-				--
-				local NewValue = Instance.new('TextLabel', KeyHolder)
-				--
-				NewValue.Name = "NewValue"
-				NewValue.Size = UDim2.new(0,0,0,15)
-				NewValue.BackgroundColor3 = Color3.new(1,1,1)
-				NewValue.BackgroundTransparency = 1
-				NewValue.BorderSizePixel = 0
-				NewValue.BorderColor3 = Color3.new(0,0,0)
-				NewValue.Text = tostring(" ["..Key.."] " .. Name .. " (" .. Mode ..") ")
-				NewValue.TextColor3 = Color3.new(1,1,1)
-				NewValue.FontFace = Font.new("rbxassetid://12187371840")
-				NewValue.TextSize = 12
-				NewValue.AutomaticSize = Enum.AutomaticSize.X
-				NewValue.TextXAlignment = Enum.TextXAlignment.Left
-				NewValue.Visible = false
-				--
-				function KeyValue:SetVisible(State)
-					NewValue.Visible = State;
-				end;
-				--
-				function KeyValue:Update(NewName, NewKey, NewMode)
-					NewValue.Text = tostring(" ["..NewName.."] " .. NewKey .. " (" .. NewMode ..") ")
-				end;
-				return KeyValue
-			end;
-			return KeyList
+			LineThing.BorderColor3 = Color3.new(0,0,0)               
+            -- Functions
+                function KeyList:SetVisible(State)
+                    KeyOutline.Visible = State
+                    for _, element in pairs(self.Elements) do
+                        element:SetVisible(State)
+                    end
+                end
+                
+                function KeyList:NewKey(Name, Key, Mode)
+                    local KeyValue = {}
+                    local NewValue = Instance.new('TextLabel', KeyHolder)
+                    
+                    -- Configuração do elemento
+                    NewValue.Name = Name
+                    NewValue.Size = UDim2.new(0, 0, 0, 15)
+                    NewValue.BackgroundTransparency = 1
+                    NewValue.Text = string.format("[%s] %s - %s", Key, Name, Mode)
+                    NewValue.TextColor3 = Color3.new(1, 1, 1)
+                    NewValue.FontFace = Font.new("rbxassetid://12187371840")
+                    NewValue.TextSize = 12
+                    NewValue.AutomaticSize = Enum.AutomaticSize.X
+                    NewValue.TextXAlignment = Enum.TextXAlignment.Left
+                    NewValue.Visible = true -- Alterado para visível por padrão
+                    
+                    -- Armazena o keybind
+                    table.insert(self.Keybinds, {
+                        Name = Name,
+                        Key = Key,
+                        Mode = Mode,
+                        Element = NewValue
+                    })
+                    
+                    -- Armazena o elemento UI
+                    table.insert(self.Elements, KeyValue)
+                    
+                    function KeyValue:SetVisible(State)
+                        NewValue.Visible = State
+                    end
+                    
+                    function KeyValue:Update(NewName, NewKey, NewMode)
+                        NewValue.Text = string.format("[%s] %s - %s", NewKey, NewName, NewMode)
+                    end
+                    
+                    return KeyValue
+                end
+                
+                -- Atualiza automaticamente o layout
+                UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+                    KeyHolder.Size = UDim2.new(1, 0, 0, UIListLayout.AbsoluteContentSize.Y)
+                end)
+                
+                return KeyList
+            end
 		end
 	end
 	-- // Color Picker Functions
