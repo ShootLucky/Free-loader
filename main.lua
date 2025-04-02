@@ -197,19 +197,6 @@ local Library = {
 	ScreenGUI = nil;
 }
 
-Library:Connection(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
-    -- Verifica se é uma tecla mapeada (Mouse4/Mouse5 configurados como F1/F2)
-    if input.UserInputType == Enum.UserInputType.Keyboard then
-        if input.KeyCode == Enum.KeyCode.F1 then
-            print("Botão Mouse4 (mapeado como F1) pressionado!")
-            -- Ação para Mouse4
-        elseif input.KeyCode == Enum.KeyCode.F2 then
-            print("Botão Mouse5 (mapeado como F2) pressionado!")
-            -- Ação para Mouse5
-        end
-    end
-end)
-
 local Players = game:GetService("Players")
 local InputService = game:GetService("UserInputService");
 local RunService = game:GetService("RunService");
