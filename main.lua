@@ -609,128 +609,126 @@ Library.Sections.__index = Library.Sections;
         function Library:KeybindList()
             local KeyList = {
                 Keybinds = {},
-                Elements = {} -- Nova tabela para armazenar elementos UI
-            }
-            Library.KeyList = KeyList
+                Elements = {}
+            };
+            Library.KeyList = KeyList;
             
             -- Verifica se PlaceHolderUI existe ou cria um
             if not PlaceHolderUI then
-                PlaceHolderUI = Instance.new("ScreenGui", game:GetService("CoreGui"))
-                PlaceHolderUI.Name = "LunarLibKeybindList"
-            end
+                PlaceHolderUI = Instance.new("ScreenGui", game:GetService("CoreGui"));
+                PlaceHolderUI.Name = "LunarLibKeybindList";
+            end;
             
-            local KeyOutline = Instance.new('Frame', PlaceHolderUI)
-            local KeyInline = Instance.new('Frame', KeyOutline)
-            local KeyAccent = Instance.new('Frame', KeyInline)
-            local KeyHolder = Instance.new('Frame', KeyInline)
-            local UIListLayout = Instance.new('UIListLayout', KeyHolder)
-            local KeyTitle = Instance.new('TextLabel', KeyInline)
-            local LineThing = Instance.new('Frame', KeyInline)
-			--
-			KeyOutline.Name = "KeyOutline"
-			KeyOutline.Position = UDim2.new(0.01,0,0.5,0)
-			KeyOutline.BackgroundColor3 = Color3.new(0.1765,0.1765,0.1765)
-			KeyOutline.BorderColor3 = Color3.new(0.0392,0.0392,0.0392)
-			KeyOutline.AnchorPoint = NewVector2(0.009999999776482582,0.5)
-			KeyOutline.AutomaticSize = Enum.AutomaticSize.XY
-			--
-			KeyInline.Name = "KeyInline"
-			KeyInline.Position = UDim2.new(0,1,0,1)
-			KeyInline.Size = UDim2.new(0,-2,0,-2)
-			KeyInline.BackgroundColor3 = Color3.new(0.0745,0.0745,0.0745)
-			KeyInline.BorderSizePixel = 0
-			KeyInline.BorderColor3 = Color3.new(0,0,0)
-			KeyInline.AutomaticSize = Enum.AutomaticSize.XY
-			--
-			KeyAccent.Name = "KeyAccent"
-			KeyAccent.Size = UDim2.new(1,0,0,1)
-			KeyAccent.BackgroundColor3 = Library.Accent
-			KeyAccent.BorderSizePixel = 0
-			KeyAccent.BorderColor3 = Color3.new(0,0,0)
-			--
-			KeyHolder.Name = "KeyHolder"
-			KeyHolder.Position = UDim2.new(0,0,0,22)
-			KeyHolder.BackgroundColor3 = Color3.new(1,1,1)
-			KeyHolder.BackgroundTransparency = 1
-			KeyHolder.BorderSizePixel = 0
-			KeyHolder.BorderColor3 = Color3.new(0,0,0)
-			KeyHolder.AutomaticSize = Enum.AutomaticSize.XY
-			--
-			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-			--
-			KeyTitle.Name = "KeyTitle"
-			KeyTitle.Size = UDim2.new(1,0,0,20)
-			KeyTitle.BackgroundColor3 = Color3.new(1,1,1)
-			KeyTitle.BackgroundTransparency = 1
-			KeyTitle.BorderSizePixel = 0
-			KeyTitle.BorderColor3 = Color3.new(0,0,0)
-			KeyTitle.Text = "Keybinds"
-			KeyTitle.TextColor3 = Color3.new(1,1,1)
-			KeyTitle.FontFace = Font.new("rbxassetid://12187371840")
-			KeyTitle.TextSize = 12
-			KeyTitle.TextStrokeTransparency = 0
-			--
-			LineThing.Name = "LineThing"
-			LineThing.Position = UDim2.new(0,0,0,20)
-			LineThing.Size = UDim2.new(1,0,0,1)
-			LineThing.BackgroundColor3 = Color3.new(0.1765,0.1765,0.1765)
-			LineThing.BorderSizePixel = 0
-			LineThing.BorderColor3 = Color3.new(0,0,0)               
-            -- Functions
-                function KeyList:SetVisible(State)
-                    KeyOutline.Visible = State
-                    for _, element in pairs(self.Elements) do
-                        element:SetVisible(State)
-                    end
-                end
+            local KeyOutline = Instance.new('Frame', PlaceHolderUI);
+            local KeyInline = Instance.new('Frame', KeyOutline);
+            local KeyAccent = Instance.new('Frame', KeyInline);
+            local KeyHolder = Instance.new('Frame', KeyInline);
+            local UIListLayout = Instance.new('UIListLayout', KeyHolder);
+            local KeyTitle = Instance.new('TextLabel', KeyInline);
+            local LineThing = Instance.new('Frame', KeyInline);
+            
+            -- Configuração do KeyOutline
+            KeyOutline.Name = "KeyOutline";
+            KeyOutline.Position = UDim2.new(0.01, 0, 0.5, 0);
+            KeyOutline.BackgroundColor3 = Color3.new(0.1765, 0.1765, 0.1765);
+            KeyOutline.BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392);
+            KeyOutline.AnchorPoint = Vector2.new(0.01, 0.5);
+            KeyOutline.AutomaticSize = Enum.AutomaticSize.XY;
+            
+            -- Configuração do KeyInline
+            KeyInline.Name = "KeyInline";
+            KeyInline.Position = UDim2.new(0, 1, 0, 1);
+            KeyInline.Size = UDim2.new(0, -2, 0, -2);
+            KeyInline.BackgroundColor3 = Color3.new(0.0745, 0.0745, 0.0745);
+            KeyInline.BorderSizePixel = 0;
+            KeyInline.AutomaticSize = Enum.AutomaticSize.XY;
+            
+            -- Configuração do KeyAccent
+            KeyAccent.Name = "KeyAccent";
+            KeyAccent.Size = UDim2.new(1, 0, 0, 1);
+            KeyAccent.BackgroundColor3 = Library.Accent;
+            KeyAccent.BorderSizePixel = 0;
+            
+            -- Configuração do KeyHolder
+            KeyHolder.Name = "KeyHolder";
+            KeyHolder.Position = UDim2.new(0, 0, 0, 22);
+            KeyHolder.BackgroundTransparency = 1;
+            KeyHolder.BorderSizePixel = 0;
+            KeyHolder.AutomaticSize = Enum.AutomaticSize.XY;
+            
+            -- Configuração do UIListLayout
+            UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder;
+            
+            -- Configuração do KeyTitle
+            KeyTitle.Name = "KeyTitle";
+            KeyTitle.Size = UDim2.new(1, 0, 0, 20);
+            KeyTitle.BackgroundTransparency = 1;
+            KeyTitle.BorderSizePixel = 0;
+            KeyTitle.Text = "Keybinds";
+            KeyTitle.TextColor3 = Color3.new(1, 1, 1);
+            KeyTitle.FontFace = Font.new("rbxassetid://12187371840");
+            KeyTitle.TextSize = 12;
+            KeyTitle.TextStrokeTransparency = 0;
+            
+            -- Configuração do LineThing
+            LineThing.Name = "LineThing";
+            LineThing.Position = UDim2.new(0, 0, 0, 20);
+            LineThing.Size = UDim2.new(1, 0, 0, 1);
+            LineThing.BackgroundColor3 = Color3.new(0.1765, 0.1765, 0.1765);
+            LineThing.BorderSizePixel = 0;
+            
+            -- Função para mostrar/esconder a lista
+            function KeyList:SetVisible(State)
+                KeyOutline.Visible = State;
+                for _, element in pairs(self.Elements) do
+                    element:SetVisible(State);
+                end;
+            end;
+            
+            -- Função para adicionar novos keybinds
+            function KeyList:NewKey(Name, Key, Mode)
+                local KeyValue = {};
+                local NewValue = Instance.new('TextLabel', KeyHolder);
                 
-                function KeyList:NewKey(Name, Key, Mode)
-                    local KeyValue = {}
-                    local NewValue = Instance.new('TextLabel', KeyHolder)
-                    
-                    -- Configuração do elemento
-                    NewValue.Name = Name
-                    NewValue.Size = UDim2.new(0, 0, 0, 15)
-                    NewValue.BackgroundTransparency = 1
-                    NewValue.Text = string.format("[%s] %s - %s", Key, Name, Mode)
-                    NewValue.TextColor3 = Color3.new(1, 1, 1)
-                    NewValue.FontFace = Font.new("rbxassetid://12187371840")
-                    NewValue.TextSize = 12
-                    NewValue.AutomaticSize = Enum.AutomaticSize.X
-                    NewValue.TextXAlignment = Enum.TextXAlignment.Left
-                    NewValue.Visible = true -- Alterado para visível por padrão
-                    
-                    -- Armazena o keybind
-                    table.insert(self.Keybinds, {
-                        Name = Name,
-                        Key = Key,
-                        Mode = Mode,
-                        Element = NewValue
-                    })
-                    
-                    -- Armazena o elemento UI
-                    table.insert(self.Elements, KeyValue)
-                    
-                    function KeyValue:SetVisible(State)
-                        NewValue.Visible = State
-                    end
-                    
-                    function KeyValue:Update(NewName, NewKey, NewMode)
-                        NewValue.Text = string.format("[%s] %s - %s", NewKey, NewName, NewMode)
-                    end
-                    
-                    return KeyValue
-                end
+                NewValue.Name = Name;
+                NewValue.Size = UDim2.new(0, 0, 0, 15);
+                NewValue.BackgroundTransparency = 1;
+                NewValue.Text = string.format("[%s] %s - %s", Key, Name, Mode);
+                NewValue.TextColor3 = Color3.new(1, 1, 1);
+                NewValue.FontFace = Font.new("rbxassetid://12187371840");
+                NewValue.TextSize = 12;
+                NewValue.AutomaticSize = Enum.AutomaticSize.X;
+                NewValue.TextXAlignment = Enum.TextXAlignment.Left;
+                NewValue.Visible = true;
                 
-                -- Atualiza automaticamente o layout
-                UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-                    KeyHolder.Size = UDim2.new(1, 0, 0, UIListLayout.AbsoluteContentSize.Y)
-                end)
+                table.insert(self.Keybinds, {
+                    Name = Name,
+                    Key = Key,
+                    Mode = Mode,
+                    Element = NewValue
+                });
                 
-                return KeyList
-            end
-		end
-	end
+                table.insert(self.Elements, KeyValue);
+                
+                function KeyValue:SetVisible(State)
+                    NewValue.Visible = State;
+                end;
+                
+                function KeyValue:Update(NewName, NewKey, NewMode)
+                    NewValue.Text = string.format("[%s] %s - %s", NewKey, NewName, NewMode);
+                end;
+                
+                return KeyValue;
+            end;
+            
+            -- Atualização automática do tamanho
+            UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+                KeyHolder.Size = UDim2.new(1, 0, 0, UIListLayout.AbsoluteContentSize.Y);
+            end);
+            
+            return KeyList;
+        end;
+    end
 	-- // Color Picker Functions
 	do
 		function Library:NewPicker(name, default, defaultalpha, parent, count, flag, callback)
