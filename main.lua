@@ -616,7 +616,7 @@ Library.Sections.__index = Library.Sections;
             -- Verifica se PlaceHolderUI existe ou cria um
             if not PlaceHolderUI then
                 PlaceHolderUI = Instance.new("ScreenGui", game:GetService("CoreGui"));
-                PlaceHolderUI.Name = "LunarLibKeybindList";
+                PlaceHolderUI.Name = "mainKeybindList";
             end;
             
             local KeyOutline = Instance.new('Frame', PlaceHolderUI);
