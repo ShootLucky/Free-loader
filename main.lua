@@ -185,8 +185,8 @@ local Library = {
 		[Enum.UserInputType.MouseButton1] = "MB1",
 		[Enum.UserInputType.MouseButton2] = "MB2",
 		[Enum.UserInputType.MouseButton3] = "MB3",
-                [Enum.UserInputType.MouseButton4] = "MB4",
-                [Enum.UserInputType.MouseButton5] = "MB5"
+                [Enum.KeyCode.F1] = "MB4",
+                [Enum.KeyCode.F2] = "MB5"
 	};
 	Connections = {};
 	Font = Font.new("rbxassetid://12187371840");
@@ -198,16 +198,14 @@ local Library = {
 }
 
 Library:Connection(game:GetService("UserInputService").InputBegan, function(input, gameProcessed)
-    -- Verifica se é um botão do mouse mapeado
-    if Library.Keys[input.UserInputType] then
-        local key = Library.Keys[input.UserInputType]
-        print("Botão pressionado:", key)
-        
-        -- Ações específicas para cada botão
-        if input.UserInputType == Enum.UserInputType.MouseButton4 then
-            -- Ação para o botão lateral 1 (MB4)
-        elseif input.UserInputType == Enum.UserInputType.MouseButton5 then
-            -- Ação para o botão lateral 2 (MB5)
+    -- Verifica se é uma tecla mapeada (Mouse4/Mouse5 configurados como F1/F2)
+    if input.UserInputType == Enum.UserInputType.Keyboard then
+        if input.KeyCode == Enum.KeyCode.F1 then
+            print("Botão Mouse4 (mapeado como F1) pressionado!")
+            -- Ação para Mouse4
+        elseif input.KeyCode == Enum.KeyCode.F2 then
+            print("Botão Mouse5 (mapeado como F2) pressionado!")
+            -- Ação para Mouse5
         end
     end
 end)
