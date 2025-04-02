@@ -185,8 +185,8 @@ local Library = {
 		[Enum.UserInputType.MouseButton1] = "MB1",
 		[Enum.UserInputType.MouseButton2] = "MB2",
 		[Enum.UserInputType.MouseButton3] = "MB3",
-                [Enum.KeyCode.F1] = "MB4",
-                [Enum.KeyCode.F2] = "MB5"
+                [Enum.KeyCode.MouseButton4] = "MB4",
+                [Enum.KeyCode.MouseButton5] = "MB5"
 	};
 	Connections = {};
 	Font = Font.new("rbxassetid://12187371840");
