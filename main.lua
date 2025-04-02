@@ -606,19 +606,10 @@ Library.Sections.__index = Library.Sections;
 			end;
 		end;
 		-- 
-        function Library:KeybindList()
-            local KeyList = {
-                Keybinds = {},
-                Elements = {}
-            };
-            Library.KeyList = KeyList;
-            
-            -- Verifica se PlaceHolderUI existe ou cria um
-            if not PlaceHolderUI then
-                PlaceHolderUI = Instance.new("ScreenGui", game:GetService("CoreGui"));
-                PlaceHolderUI.Name = "mainKeybindList";
-            end;
-            
+		function Library:KeybindList()
+			local KeyList = {Keybinds = {}};
+			Library.KeyList = KeyList
+          
             local KeyOutline = Instance.new('Frame', PlaceHolderUI);
             local KeyInline = Instance.new('Frame', KeyOutline);
             local KeyAccent = Instance.new('Frame', KeyInline);
